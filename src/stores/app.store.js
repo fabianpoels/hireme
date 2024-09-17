@@ -8,10 +8,16 @@ export const useAppStore = defineStore('app', {
   state: () => ({
     showCookieConsent: false,
     page: 'zero',
+    allPages: ['zero', 'info', 'email'],
     score: 0,
     sessionId: null
   }),
-  getters: {},
+  getters: {
+    progress: (state) => {
+      const index = state.allPages.findIndex((el) => el === state.page)
+      return Math.round((index / state.allPages.length) * 100)
+    }
+  },
   actions: {
     async loadAppState() {
       const { cookies } = useCookies()
@@ -19,10 +25,14 @@ export const useAppStore = defineStore('app', {
       if (!cookie) {
         this.showCookieConsent = true
       } else {
-        const { data } = await api.post('whatsupdoc', { sessionId: cookie })
-        this.page = data.page
-        this.sessionId = cookie
-        this.score = data.score
+        try {
+          const { data } = await api.post('whatsupdoc', { sessionId: cookie })
+          this.page = data.page
+          this.sessionId = cookie
+          this.score = data.score
+        } catch (e) {
+          throw e
+        }
       }
     },
 
@@ -33,6 +43,14 @@ export const useAppStore = defineStore('app', {
       this.sessionId = data.sessionId
       this.score = data.score
       cookies.set(cookieString, data.sessionId)
+    },
+
+    async answerPage(answer) {
+      const { data, status } = await api.post('answer', { answer, sessionId: this.sessionId })
+      if (status === 200) {
+        this.page = data.page
+        this.score = data.score
+      }
     }
   }
 })

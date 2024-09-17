@@ -9,7 +9,15 @@
       soulmate". Unlike with the previously mentioned girlfriend situation, hard refreshing the page
       hopefully does the trick.
     </div>
-    <component :is="pages[`page-${appStore.page}`]" v-else />
+    <template v-else>
+      <component
+        :is="pages[`page-${appStore.page}`]"
+        @showMainButtons="(val) => (showMainButtons = val)"
+      />
+      <Transition name="fade">
+        <main-buttons v-if="showMainButtons" />
+      </Transition>
+    </template>
     <cookie-dialog v-model="showCookieDialog" />
     <Toast />
   </div>
@@ -27,19 +35,23 @@ import Toast from 'primevue/toast'
 import { useToast } from 'primevue/usetoast'
 const toast = useToast()
 import CookieDialog from '@/components/CookieDialog.vue'
+import MainButtons from '@/components/MainButtons.vue'
 
 // PAGES
 import PageZero from '@/pages/PageZero.vue'
-import PageWacopbtui from '@/pages/PageWacopbtui.vue'
+import PageInfo from '@/pages/PageInfo.vue'
+import PageEmail from '@/pages/PageEmail.vue'
 
 const pages = {
   'page-zero': PageZero,
-  'page-wacopbtui': PageWacopbtui
+  'page-info': PageInfo,
+  'page-email': PageEmail
 }
 
 const loading = ref(true)
 const hasError = ref(false)
 const showCookieDialog = ref(false)
+const showMainButtons = ref(false)
 
 // SETUP APP
 onMounted(async () => {
@@ -48,6 +60,7 @@ onMounted(async () => {
   try {
     await appStore.loadAppState()
     if (appStore.showCookieConsent) showCookieDialog.value = true
+    if (appStore.page !== 'zero') showMainButtons.value = true
   } catch (e) {
     alert.showError(toast, e)
     hasError.value = true
@@ -56,4 +69,14 @@ onMounted(async () => {
   }
 })
 </script>
-<style scoped></style>
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 1.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

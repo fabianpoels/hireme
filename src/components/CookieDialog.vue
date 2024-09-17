@@ -5,6 +5,7 @@
     :draggable="false"
     header="Cookie consent"
     :style="{ width: '30rem' }"
+    modal
   >
     <div>
       Obivously this trashy webpage uses cookies to barely function. Without cookies, whatever
@@ -12,7 +13,7 @@
       accept them.
     </div>
     <template #footer>
-      <Button outlined severity="danger" @click="decline()" autofocus :disabled="saving">
+      <Button outlined severity="danger" @click="decline()" :disabled="saving">
         No, I'm close-minded and overly sceptical of your intentions, so I refuse to have my browser
         be infected by your moldy cookies. Get me out of here NOW!
       </Button>
