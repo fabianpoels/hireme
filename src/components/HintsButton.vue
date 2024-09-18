@@ -1,5 +1,5 @@
 <template>
-  <div id="hintsButton">
+  <div id="hintsButton" v-if="showHintsButton">
     <Button
       rounded
       raised
@@ -16,7 +16,8 @@
       :draggable="false"
       :closable="!loading"
       header="Hints"
-      :style="{ width: '30rem' }"
+      style="max-width: 500px; min-width: 300px"
+      class="hintsDialog"
     >
       <div>
         <div v-if="appStore.hints.length < 1">No hints taken yet</div>
@@ -43,7 +44,7 @@
   </div>
 </template>
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useAppStore } from '@/stores/app.store'
 const appStore = useAppStore()
 
@@ -52,6 +53,10 @@ import Dialog from 'primevue/dialog'
 
 const showDialog = ref(false)
 const loading = ref(false)
+
+const showHintsButton = computed(() => {
+  return !(appStore.hints.length === 0 && !appStore.hintsLeft)
+})
 
 async function getHint() {
   loading.value = true

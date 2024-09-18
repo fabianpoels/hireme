@@ -21,7 +21,7 @@
       </Transition>
     </template>
     <cookie-dialog v-model="showCookieDialog" />
-    <Toast position="top-center" group="answers" />
+    <Toast position="bottom-center" group="answers" />
     <Toast position="top-right" group="errors" />
     <hints-button />
   </div>
