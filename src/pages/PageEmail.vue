@@ -57,7 +57,11 @@ const email = ref('')
 async function nextPage() {
   saving.value = true
   try {
-    await appStore.answerPage(email.value)
+    const result = await appStore.answerPage(email.value)
+    if (result === false) {
+      console.log('showing toast')
+      alert.showWrongAnswer(toast, 'How can you mess up providing a valid e-mail?')
+    }
   } catch (e) {
     alert.showError(toast, e)
   } finally {

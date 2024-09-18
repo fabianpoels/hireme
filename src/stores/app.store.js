@@ -10,7 +10,9 @@ export const useAppStore = defineStore('app', {
     page: 'zero',
     allPages: ['zero', 'info', 'email', 'otp'],
     score: 0,
-    sessionId: null
+    sessionId: null,
+    hints: [],
+    hintsLeft: false
   }),
   getters: {
     progress: (state) => {
@@ -26,10 +28,11 @@ export const useAppStore = defineStore('app', {
         this.showCookieConsent = true
       } else {
         try {
-          const { data } = await api.post('whatsupdoc', { sessionId: cookie })
+          let { data } = await api.post('whatsupdoc', { sessionId: cookie })
           this.page = data.page
           this.sessionId = cookie
           this.score = data.score
+          await this.loadHints()
         } catch (e) {
           throw e
         }
@@ -48,9 +51,31 @@ export const useAppStore = defineStore('app', {
     async answerPage(answer) {
       const { data, status } = await api.post('answer', { answer, sessionId: this.sessionId })
       if (status === 200) {
-        this.page = data.page
-        this.score = data.score
+        this.page = data.participant.page
+        this.score = data.participant.score
+        await this.loadHints()
+        return data.valid
       }
+      return false
+    },
+
+    async loadHints() {
+      try {
+        const { data } = await api.post('hints', { sessionId: this.sessionId, page: this.page })
+        this.hints = data.hints
+        this.hintsLeft = data.hasHintsLeft
+      } catch (e) {
+        console.error(e)
+      }
+    },
+
+    async getHint() {
+      const { data } = await api.post('takehint', { sessionId: this.sessionId, page: this.page })
+      const { hints, participant } = data
+      this.hints = hints.hints
+      this.hintsLeft = hints.hasHintsLeft
+      this.page = participant.page
+      this.score = participant.score
     }
   }
 })

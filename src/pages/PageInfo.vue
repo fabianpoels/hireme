@@ -110,6 +110,9 @@ const saving = ref(false)
 
 async function nextPage() {
   saving.value = true
+  console.log(
+    `You had to click approximately ${allTexts.length + 1} times to get through this page`
+  )
   try {
     await appStore.answerPage("i'm still a moron")
   } catch (e) {

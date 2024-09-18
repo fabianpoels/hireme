@@ -25,10 +25,22 @@ const alert = {
       severity: 'error',
       summary: 'Success Message',
       detail: randomElementFromArray(extremelyFunnyErrorMessages),
+      group: 'errors',
       life: 9000
     })
     console.error('BOOOOOOOOOOOOM')
     console.error(error)
+  },
+
+  showWrongAnswer: function (toast, msg) {
+    toast.add({
+      severity: 'warn',
+      summary: 'Wrong answer',
+      detail: msg,
+      position: 'top-center',
+      group: 'answers',
+      life: 9000
+    })
   }
 }
 
