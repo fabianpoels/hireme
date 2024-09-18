@@ -10,19 +10,17 @@ import Aura from '@primevue/themes/aura'
 import ToastService from 'primevue/toastservice'
 import Tooltip from 'primevue/tooltip'
 
-// import { globalCookiesConfig } from 'vue3-cookies'
-// const isProd = import.meta.env.VITE_ENV === 'production'
-// const sameSite = isProd ? 'None' : 'None'
-// const domain = import.meta.env.VITE_DOMAIN
-// console.log('!!! SETTING COOKIE CONFIG')
-// console.log(`${domain}   :   ${isProd}   :   ${sameSite}`)
-// globalCookiesConfig({
-//   expireTimes: -1,
-//   path: '/',
-//   domain: domain,
-//   secure: isProd,
-//   sameSite: sameSite
-// })
+import { globalCookiesConfig } from 'vue3-cookies'
+const isProd = import.meta.env.VITE_ENV === 'production'
+const sameSite = isProd ? 'None' : 'None'
+const domain = import.meta.env.VITE_DOMAIN
+globalCookiesConfig({
+  expireTimes: -1,
+  path: '/',
+  domain: domain,
+  secure: isProd,
+  sameSite: sameSite
+})
 
 const app = createApp(App)
 
