@@ -18,7 +18,7 @@ if (env === 'production') {
     path: '/',
     domain: 'fabianpoels.com',
     secure: true,
-    sameSite: 'Strict'
+    sameSite: 'None'
   })
 }
 
