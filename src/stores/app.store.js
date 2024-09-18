@@ -41,10 +41,11 @@ export const useAppStore = defineStore('app', {
 
     async consentToCookies() {
       const { data } = await api.post('bringiton')
+      cookies.set(cookieString, data.sessionId)
       this.page = data.page
       this.sessionId = data.sessionId
       this.score = data.score
-      cookies.set(cookieString, data.sessionId)
+      return cookies.get(cookieString) === data.sessionId
     },
 
     async answerPage(answer) {

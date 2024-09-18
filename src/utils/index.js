@@ -32,6 +32,17 @@ const alert = {
     console.error(error)
   },
 
+  showCookieError: function (toast) {
+    toast.add({
+      severity: 'error',
+      summary: 'COOKIE ERROR',
+      detail:
+        "You and your browser should just blindly accept my cookies, otherwise I don't see this relationship going somewhere",
+      group: 'errors',
+      life: 9000
+    })
+  },
+
   showWrongAnswer: function (toast, msg) {
     toast.add({
       severity: 'warn',

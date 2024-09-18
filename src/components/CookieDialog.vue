@@ -43,8 +43,12 @@ const saving = ref(false)
 async function consent() {
   saving.value = true
   try {
-    await appStore.consentToCookies()
-    showDialog.value = false
+    const result = await appStore.consentToCookies()
+    if (result === false) {
+      alert.showCookieError(toast)
+    } else {
+      showDialog.value = false
+    }
   } catch (e) {
     alert.showError(toast, e)
   } finally {
