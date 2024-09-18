@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div class="fullscreen">
+    <h1 id="score">Score: {{ appStore.score }}</h1>
+    <ProgressBar :value="appStore.progress" :showValue="false" class="progressbar" />
     <div v-if="loading">
       <ProgressSpinner />
     </div>
@@ -30,6 +32,7 @@ const appStore = useAppStore()
 import { alert } from '@/utils'
 
 // COMPONENTS
+import ProgressBar from 'primevue/progressbar'
 import ProgressSpinner from 'primevue/progressspinner'
 import Toast from 'primevue/toast'
 import { useToast } from 'primevue/usetoast'
@@ -41,11 +44,13 @@ import MainButtons from '@/components/MainButtons.vue'
 import PageZero from '@/pages/PageZero.vue'
 import PageInfo from '@/pages/PageInfo.vue'
 import PageEmail from '@/pages/PageEmail.vue'
+import PageOtp from '@/pages/PageOtp.vue'
 
 const pages = {
   'page-zero': PageZero,
   'page-info': PageInfo,
-  'page-email': PageEmail
+  'page-email': PageEmail,
+  'page-otp': PageOtp
 }
 
 const loading = ref(true)
@@ -70,6 +75,22 @@ onMounted(async () => {
 })
 </script>
 <style scoped>
+.fullscreen {
+  width: 100%;
+  height: 100%;
+}
+
+#score {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.progressbar {
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 1.5s ease;
