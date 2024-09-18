@@ -44,7 +44,7 @@ async function consent() {
   saving.value = true
   try {
     await appStore.consentToCookies()
-    this.showDialog = false
+    showDialog.value = false
   } catch (e) {
     alert.showError(toast, e)
   } finally {
