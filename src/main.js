@@ -12,11 +12,11 @@ import Tooltip from 'primevue/tooltip'
 
 import { globalCookiesConfig } from 'vue3-cookies'
 const isProd = import.meta.env.VITE_ENV === 'production'
-const sameSite = isProd ? 'None' : 'None'
+const sameSite = isProd ? 'Strict' : 'None'
 const domain = import.meta.env.VITE_DOMAIN
 globalCookiesConfig({
   expireTimes: -1,
-  path: '/',
+  path: '/hireme',
   domain: domain,
   secure: isProd,
   sameSite: sameSite
