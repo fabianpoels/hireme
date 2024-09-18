@@ -77,7 +77,7 @@ const showMainButtons = ref(false)
 onMounted(async () => {
   console.log('are you sure you landed on the right website?')
   console.log('setting test cookie')
-  cookies.set('randomKey', 'randomValue', '1d', '/hireme', 'fabianpoels.com', true, 'None')
+  cookies.set('randomKey', 'randomValue', '1d', '/hireme', 'fabianpoels.com', true, 'Strict')
   loading.value = true
   try {
     await appStore.loadAppState(cookies)
