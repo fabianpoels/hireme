@@ -1,6 +1,4 @@
 import { defineStore } from 'pinia'
-import { useCookies } from 'vue3-cookies'
-const { cookies } = useCookies()
 import api from '@/api'
 
 const cookieString = 'hireMeAppCookie'
@@ -22,8 +20,7 @@ export const useAppStore = defineStore('app', {
     }
   },
   actions: {
-    async loadAppState() {
-      const { cookies } = useCookies()
+    async loadAppState(cookies) {
       const cookie = cookies.get(cookieString)
       if (!cookie) {
         this.showCookieConsent = true
@@ -40,7 +37,7 @@ export const useAppStore = defineStore('app', {
       }
     },
 
-    async consentToCookies() {
+    async consentToCookies(cookies) {
       const { data } = await api.post('bringiton')
       this.page = data.page
       this.sessionId = data.sessionId

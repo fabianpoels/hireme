@@ -29,6 +29,9 @@ import { ref } from 'vue'
 import { useAppStore } from '@/stores/app.store'
 const appStore = useAppStore()
 
+import { useCookies } from 'vue3-cookies'
+const { cookies } = useCookies()
+
 import { useToast } from 'primevue/usetoast'
 const toast = useToast()
 
@@ -43,7 +46,7 @@ const saving = ref(false)
 async function consent() {
   saving.value = true
   try {
-    await appStore.consentToCookies()
+    await appStore.consentToCookies(cookies)
     showDialog.value = false
   } catch (e) {
     alert.showError(toast, e)

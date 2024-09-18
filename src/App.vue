@@ -40,6 +40,9 @@ import { ref, onMounted } from 'vue'
 import { useAppStore } from '@/stores/app.store'
 const appStore = useAppStore()
 
+import { useCookies } from 'vue3-cookies'
+const { cookies } = useCookies()
+
 import { alert } from '@/utils'
 
 // COMPONENTS
@@ -75,7 +78,7 @@ onMounted(async () => {
   console.log('are you sure you landed on the right website?')
   loading.value = true
   try {
-    await appStore.loadAppState()
+    await appStore.loadAppState(cookies)
     if (appStore.showCookieConsent) showCookieDialog.value = true
     if (appStore.page !== 'zero') showMainButtons.value = true
   } catch (e) {
