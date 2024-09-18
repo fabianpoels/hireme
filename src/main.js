@@ -2,27 +2,13 @@ import './assets/main.css'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import App from './App.vue'
 
 // primevue
 import PrimeVue from 'primevue/config'
 import Aura from '@primevue/themes/aura'
 import ToastService from 'primevue/toastservice'
 import Tooltip from 'primevue/tooltip'
-
-// cookies
-import { globalCookiesConfig } from 'vue3-cookies'
-const env = import.meta.env.VITE_ENV
-if (env === 'production') {
-  globalCookiesConfig({
-    expireTimes: '30d',
-    path: '/',
-    domain: 'fabianpoels.com',
-    secure: true,
-    sameSite: 'None'
-  })
-}
-
-import App from './App.vue'
 
 const app = createApp(App)
 

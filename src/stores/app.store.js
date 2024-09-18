@@ -1,8 +1,19 @@
 import { defineStore } from 'pinia'
 import { useCookies } from 'vue3-cookies'
+const { cookies } = useCookies()
 import api from '@/api'
 
+const isProd = import.meta.env.VITE_ENV === 'production'
+const sameSite = isProd ? 'Lax' : 'None'
+const domain = import.meta.env.VITE_DOMAIN
 const cookieString = 'hireMeAppCookie'
+function setCookie(value) {
+  if (isProd) {
+    cookies.set(cookieString, value, -1, '/', domain, isProd, sameSite)
+  } else {
+    cookies.set(cookieString, value)
+  }
+}
 
 export const useAppStore = defineStore('app', {
   state: () => ({
@@ -40,12 +51,11 @@ export const useAppStore = defineStore('app', {
     },
 
     async consentToCookies() {
-      const { cookies } = useCookies()
       const { data } = await api.post('bringiton')
       this.page = data.page
       this.sessionId = data.sessionId
       this.score = data.score
-      cookies.set(cookieString, data.sessionId)
+      setCookie(data.sessionId)
     },
 
     async answerPage(answer) {
