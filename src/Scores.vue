@@ -9,11 +9,29 @@
       soulmate". Unlike with the previously mentioned girlfriend situation, hard refreshing the page
       hopefully does the trick.
     </div>
-    <template v-else> </template>
+    <template v-else>
+      <div class="scoresTable">
+        <DataTable
+          :value="appStore.sortedScores"
+          size="large"
+          :rowClass="({ sessionId }) => (sessionId === appStore.sessionId ? 'highlight' : null)"
+        >
+          <Column field="position" header="position"></Column>
+          <Column field="score" header="score"></Column>
+          <Column field="username" header="username"></Column>
+          <Column field="guesses" header="guesses/levels">
+            <template #body="slotProps">
+              {{ slotProps.data.guesses }} / {{ appStore.allPages.length }}
+            </template>
+          </Column>
+          <Column field="hints" header="hints"></Column>
+        </DataTable>
+      </div>
+    </template>
   </div>
 </template>
 <script setup>
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 const router = useRouter()
 
@@ -21,6 +39,8 @@ import { useAppStore } from '@/stores/app.store'
 const appStore = useAppStore()
 
 import ProgressSpinner from 'primevue/progressspinner'
+import DataTable from 'primevue/datatable'
+import Column from 'primevue/column'
 
 const loading = ref(true)
 const hasError = ref(false)
@@ -43,9 +63,18 @@ onMounted(async () => {
   }
 })
 </script>
-<style scoped>
+<style>
 .fullscreen {
   width: 100%;
   height: 100%;
+}
+
+.scoresTable {
+  margin-top: 50px;
+}
+
+.highlight {
+  color: #18181b !important;
+  background-color: #fff !important;
 }
 </style>

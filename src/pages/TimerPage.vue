@@ -34,6 +34,7 @@ let timerId
 
 onMounted(() => {
   timerId = setInterval(() => {
+    if (Number.isNaN(answer.value)) answer.value = 0
     answer.value = answer.value + 1
     if (answer.value > 20) {
       answer.value = 0

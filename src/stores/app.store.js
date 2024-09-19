@@ -37,6 +37,12 @@ export const useAppStore = defineStore('app', {
     progress: (state) => {
       const index = state.allPages.findIndex((el) => el === state.page)
       return Math.round((index / state.allPages.length) * 100)
+    },
+
+    sortedScores: (state) => {
+      return state.scores
+        .sort((a, b) => b.score - a.score)
+        .map((score, index) => ({ position: index + 1, ...score }))
     }
   },
   actions: {
