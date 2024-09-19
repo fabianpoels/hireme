@@ -59,7 +59,6 @@ async function nextPage() {
   try {
     const result = await appStore.answerPage(email.value)
     if (result === false) {
-      console.log('showing toast')
       alert.showWrongAnswer(toast, 'How can you mess up providing a valid e-mail?')
     }
   } catch (e) {

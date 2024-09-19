@@ -9,7 +9,21 @@ export const useAppStore = defineStore('app', {
   state: () => ({
     showCookieConsent: false,
     page: 'zero',
-    allPages: ['zero', 'info', 'email', 'otp'],
+    allPages: [
+      'zero',
+      'info',
+      'email',
+      'otp',
+      'ping',
+      'console',
+      'username',
+      'button',
+      'teapot',
+      'cookie',
+      'cookie2',
+      'qr',
+      'complex'
+    ],
     score: 0,
     sessionId: null,
     hints: [],

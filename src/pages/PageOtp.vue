@@ -6,7 +6,7 @@
   </p>
   <p>Should that not be the case, please blame the very cheap SMTP provider I'm using.</p>
   <p>You should know by now that spending money on this atrocity was not an option.</p>
-  <div class="otpInput">
+  <div class="centeredInput">
     <InputOtp v-model="otp" integerOnly @input="input" @paste="input" :disabled="saving" />
   </div>
 </template>
@@ -34,7 +34,10 @@ function input() {
 async function nextPage() {
   saving.value = true
   try {
-    await appStore.answerPage(otp.value)
+    const result = await appStore.answerPage(otp.value)
+    if (result === false) {
+      alert.showWrongAnswer(toast, 'Copy/paste, very tricky it seems')
+    }
   } catch (e) {
     alert.showError(toast, e)
   } finally {

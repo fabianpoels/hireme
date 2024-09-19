@@ -32,6 +32,16 @@ const alert = {
     console.error(error)
   },
 
+  showCustomError: function (toast, msg) {
+    toast.add({
+      severity: 'error',
+      summary: 'A proper error',
+      detail: msg,
+      group: 'errors',
+      life: 9000
+    })
+  },
+
   showCookieError: function (toast) {
     toast.add({
       severity: 'error',

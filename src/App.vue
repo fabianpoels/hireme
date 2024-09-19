@@ -57,12 +57,28 @@ import PageZero from '@/pages/PageZero.vue'
 import PageInfo from '@/pages/PageInfo.vue'
 import PageEmail from '@/pages/PageEmail.vue'
 import PageOtp from '@/pages/PageOtp.vue'
+import PagePing from '@/pages/PagePing.vue'
+import PageConsole from '@/pages/PageConsole.vue'
+import PageUsername from '@/pages/PageUsername.vue'
+import PageButton from '@/pages/PageButton.vue'
+import PageTeapot from '@/pages/PageTeapot.vue'
+import PageCookie from '@/pages/PageCookie.vue'
+import PageCookie2 from '@/pages/PageCookie2.vue'
+import PageQr from '@/pages/PageQr.vue'
 
 const pages = {
   'page-zero': PageZero,
   'page-info': PageInfo,
   'page-email': PageEmail,
-  'page-otp': PageOtp
+  'page-otp': PageOtp,
+  'page-ping': PagePing,
+  'page-console': PageConsole,
+  'page-username': PageUsername,
+  'page-button': PageButton,
+  'page-teapot': PageTeapot,
+  'page-cookie': PageCookie,
+  'page-cookie2': PageCookie2,
+  'page-qr': PageQr
 }
 
 const loading = ref(true)
