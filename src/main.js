@@ -10,6 +10,7 @@ import Aura from '@primevue/themes/aura'
 import ToastService from 'primevue/toastservice'
 import Tooltip from 'primevue/tooltip'
 
+// cookies
 import { globalCookiesConfig } from 'vue3-cookies'
 const isProd = import.meta.env.VITE_ENV === 'production'
 const sameSite = isProd ? 'Strict' : 'None'
@@ -38,5 +39,9 @@ app.use(PrimeVue, {
     }
   }
 })
+
+// vue router
+import { router } from './router'
+app.use(router)
 
 app.mount('#app')

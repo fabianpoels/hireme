@@ -22,12 +22,16 @@ export const useAppStore = defineStore('app', {
       'cookie',
       'cookie2',
       'qr',
-      'complex'
+      'complex',
+      'timer',
+      'scores'
     ],
     score: 0,
     sessionId: null,
     hints: [],
-    hintsLeft: false
+    hintsLeft: false,
+    showMainButtons: false,
+    scores: []
   }),
   getters: {
     progress: (state) => {
@@ -44,6 +48,7 @@ export const useAppStore = defineStore('app', {
         try {
           let { data } = await api.post('whatsupdoc', { sessionId: cookie })
           this.page = data.page
+          if (this.page !== 'zero') this.showMainButtons = true
           this.sessionId = cookie
           this.score = data.score
           await this.loadHints()
@@ -51,6 +56,12 @@ export const useAppStore = defineStore('app', {
           throw e
         }
       }
+    },
+
+    async loadScores() {
+      if (!this.sessionId) return
+      const { data } = await api.post('scores', { sessionId: this.sessionId })
+      this.scores = data
     },
 
     async consentToCookies() {

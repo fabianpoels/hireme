@@ -1,20 +1,20 @@
 <template>
+  <div class="centeredInput">The answer is 13</div>
   <div class="centeredInput">
-    <SelectButton v-model="method" :options="options" :disabled="saving" />
-    <InputText v-model="answer" :disabled="saving" />
+    <InputText v-model="answer" disabled />
     <Button
       icon="pi pi-arrow-right"
       iconPos="right"
       severity="success"
       @click="nextPage"
       class="button"
-      :disabled="answer.length < 1"
+      label=""
       :loading="saving"
     />
   </div>
 </template>
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 
 import { useAppStore } from '@/stores/app.store'
 const appStore = useAppStore()
@@ -25,20 +25,33 @@ const toast = useToast()
 import { alert } from '@/utils'
 
 import InputText from 'primevue/inputtext'
-import SelectButton from 'primevue/selectbutton'
 import Button from 'primevue/button'
 
 const saving = ref(false)
-const options = ref(['GET', 'POST'])
-const method = ref('GET')
-const answer = ref('')
+const answer = ref(0)
+
+let timerId
+
+onMounted(() => {
+  timerId = setInterval(() => {
+    answer.value = answer.value + 1
+    if (answer.value > 20) {
+      answer.value = 0
+    }
+  }, 100)
+  console.log(`This is an id you might find useful: ${timerId}`)
+})
+
+onUnmounted(() => {
+  clearInterval(timerId)
+})
 
 async function nextPage() {
   saving.value = true
   try {
-    const result = await appStore.answerPage(`${method.value}:${answer.value}`)
+    const result = await appStore.answerPage(`${answer.value}`)
     if (result === false) {
-      alert.showWrongAnswer(toast, "That's not the response I was hoping for")
+      alert.showWrongAnswer(toast, 'click faster')
     }
   } catch (e) {
     alert.showError(toast, e)
@@ -48,10 +61,6 @@ async function nextPage() {
 }
 </script>
 <style scoped>
-p {
-  margin-top: 20px;
-}
-
 .button {
   margin-left: 5px;
 }

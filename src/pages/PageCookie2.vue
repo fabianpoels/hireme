@@ -17,7 +17,6 @@
 </template>
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
-const emit = defineEmits(['showMainButtons'])
 
 import { useAppStore } from '@/stores/app.store'
 const appStore = useAppStore()

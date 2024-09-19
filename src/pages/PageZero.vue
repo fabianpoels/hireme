@@ -28,7 +28,6 @@
 </template>
 <script setup>
 import { ref, computed } from 'vue'
-const emit = defineEmits(['showMainButtons'])
 
 import { useAppStore } from '@/stores/app.store'
 const appStore = useAppStore()
@@ -56,7 +55,7 @@ const saving = ref(false)
 
 function doStep() {
   step.value++
-  if (step.value === 1) emit('showMainButtons', true)
+  if (step.value === 1) appStore.showMainButtons = true
 }
 
 async function nextPage() {
