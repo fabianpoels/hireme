@@ -47,7 +47,7 @@ const alert = {
       severity: 'error',
       summary: 'COOKIE ERROR',
       detail:
-        "You and your browser should just blindly accept my cookies, otherwise I don't see this relationship going somewhere",
+        "You and your browser should just blindly accept my cookies, otherwise I don't see this relationship going anywhere",
       group: 'errors',
       life: 9000
     })
