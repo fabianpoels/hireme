@@ -53,32 +53,19 @@ import MainButtons from '@/components/MainButtons.vue'
 import HintsButton from '@/components/HintsButton.vue'
 
 // PAGES
-import PageZero from '@/pages/PageZero.vue'
-import PageInfo from '@/pages/PageInfo.vue'
-import PageEmail from '@/pages/PageEmail.vue'
-import PageOtp from '@/pages/PageOtp.vue'
-import PagePing from '@/pages/PagePing.vue'
-import PageConsole from '@/pages/PageConsole.vue'
-import PageUsername from '@/pages/PageUsername.vue'
-import PageButton from '@/pages/PageButton.vue'
-import PageTeapot from '@/pages/PageTeapot.vue'
-import PageCookie from '@/pages/PageCookie.vue'
-import PageCookie2 from '@/pages/PageCookie2.vue'
-import PageQr from '@/pages/PageQr.vue'
-
 const pages = {
-  'page-zero': PageZero,
-  'page-info': PageInfo,
-  'page-email': PageEmail,
-  'page-otp': PageOtp,
-  'page-ping': PagePing,
-  'page-console': PageConsole,
-  'page-username': PageUsername,
-  'page-button': PageButton,
-  'page-teapot': PageTeapot,
-  'page-cookie': PageCookie,
-  'page-cookie2': PageCookie2,
-  'page-qr': PageQr
+  'page-zero': () => import('@/pages/PageZero.vue'),
+  'page-info': () => import('@/pages/PageInfo.vue'),
+  'page-email': () => import('@/pages/PageEmail.vue'),
+  'page-otp': () => import('@/pages/PageOtp.vue'),
+  'page-ping': () => import('@/pages/PagePing.vue'),
+  'page-console': () => import('@/pages/PageConsole.vue'),
+  'page-username': () => import('@/pages/PageUsername.vue'),
+  'page-button': () => import('@/pages/PageButton.vue'),
+  'page-teapot': () => import('@/pages/PageTeapot.vue'),
+  'page-cookie': () => import('@/pages/PageCookie.vue'),
+  'page-cookie2': () => import('@/pages/PageCookie2.vue'),
+  'page-qr': () => import('@/pages/PageQr.vue')
 }
 
 const loading = ref(true)
